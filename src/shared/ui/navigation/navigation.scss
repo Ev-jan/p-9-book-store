@@ -1,0 +1,23 @@
+@import "/src/app/styles/vars.scss";
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    width: 20rem;
+    align-items: center;
+    cursor: pointer;
+}
+
+li {
+display: block;
+}
+
+ul {
+display: flex;
+width: 30rem;
+justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+}

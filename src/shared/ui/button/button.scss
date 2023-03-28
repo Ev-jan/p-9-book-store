@@ -1,0 +1,25 @@
+@import "/src/app/styles/vars.scss";
+
+.btn {
+    box-sizing: border-box;
+    height: 4.5rem;
+    width: 17.6rem;
+    background-color: transparent;
+    border: 1px solid $color-btn-normal;
+    border-radius: 0px;
+    font-family: $base-font;
+    color: $color-btn-normal;
+    font-size: $size-8;
+    text-transform: uppercase;
+    font-weight: $bold;
+    line-height: .1rem;
+    cursor: pointer;
+
+    &:hover {
+        color: #E5E5E5;
+        background-color: $color-btn-normal;
+        border: 1px solid #E5E5E5;
+        transition: cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
+    }
+}
+
