@@ -1,8 +1,8 @@
 import "./index.scss";
-
-import { BooksPageLayout } from "./pages/BooksPage/index"
-
+import { BooksPage } from "../pages/booksPage";
+const booksPage = new BooksPage();
 
 export const App = () => {
-    document.write(BooksPageLayout())
+    document.write(booksPage.create());
+    booksPage.update();
 }

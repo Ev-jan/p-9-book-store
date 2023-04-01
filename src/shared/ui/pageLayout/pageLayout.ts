@@ -1,4 +1,4 @@
-import * as styles from "./pageLayout.scss";
+import styles from "./pageLayout.scss";
 
 export const PageLayout = (header: string, slider?: string, sideNav?: string) => {
     return `

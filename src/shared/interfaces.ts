@@ -4,10 +4,7 @@ export interface NavigationItem {
     url: string;
   }
 
-export interface NavigationBar {
-
-  }
-
-export interface PageLayout {
-
+export interface SlideImage {
+  url: string;
+  alt?: string;
 }

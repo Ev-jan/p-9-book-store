@@ -23,23 +23,8 @@ const config = {
           },
         ],
       },
-      // {
-      //   test: /\.scss$/,
-      //   include: path.join(__dirname, 'src/shared/ui'),
-      //   use: [
-      //     // MiniCssExtractPlugin.loader,
-      //     "@teamsupercell/typings-for-css-modules-loader",
-      //     {
-      //       loader: "css-loader",
-      //       options: { modules: true },
-      //     },
-      //     // 'css-loader',
-      //     'sass-loader',
-      //   ]
-      // },
       {
         test: /\.scss$/,
-        // exclude: path.join(__dirname, 'src/shared/ui'),
         use: [
           MiniCssExtractPlugin.loader,
           // 'style-loader',

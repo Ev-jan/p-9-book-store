@@ -1,20 +1,53 @@
 @import "/src/app/styles/vars.scss";
 
 .header {
+  display: flex;
+  max-width: 112rem;
+  justify-content: space-between;
+  align-items: center;
+  height: 11.6rem;
+  box-sizing: border-box;
+  margin: 0 auto;
+  font-family: $base-font;
+
+  & ul {
+    list-style-type: none;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 11.6rem;
-    box-sizing: border-box;
-    background-color: transparent;
-    border: 1px solid $color-btn-normal;
-    border-radius: 0px;
-    font-family: $base-font;
-    color: $color-btn-normal;
-    font-size: $size-8;
-    text-transform: uppercase;
+    column-gap: 4rem;
+  }
+
+  & a {
+    text-decoration: none;
+    font-size: $size-10;
     font-weight: $bold;
-    line-height: .1rem;
-    cursor: pointer;
+    color: $color-main-normal;
+  }
+
+  & nav {
+    max-width: max-content;
+    margin: 0 2rem;
+
+    & a:hover {
+      color: $color-main-phat;
+      font-weight: $boldissimo;
+    }
+  }
+
+  button {
+    all: unset;
+    margin: 0;
+    padding: 0;
+  }
 }
 
+.iconBar {
+  display: flex;
+  column-gap: 4rem;
+  height: 1.5rem;
+}
+
+.logo {
+  font-weight: $boldissimo;
+  font-size: $size-24;
+  color: $color-main-phat;
+}
