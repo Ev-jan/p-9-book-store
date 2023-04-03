@@ -1,8 +1,8 @@
-import { SlideImage } from "../../shared/interfaces";
+import { ISlideImage } from "../../shared/interfaces";
 import styles from "./slider.scss";
 
 export class Slider {
-  private slides: SlideImage[] = [];
+  private slides: ISlideImage[] = [];
   private currentIndex: number = 0;
   private sliderContainerEl: HTMLDivElement | null = null;
   private slideShowContainerEl: HTMLImageElement | null = null;
@@ -10,11 +10,11 @@ export class Slider {
   private dotIndicatorEls: HTMLDivElement[] | null = null;
   private slideShowInterval: number = 5000;
 
-  constructor(slides: SlideImage[]) {
+  constructor(slides: ISlideImage[]) {
     this.slides = slides;
   }
 
-  public create = (slides: SlideImage[]) => {
+  public create = (slides: ISlideImage[]) => {
     const dots = slides
       .map((slide) => `<div class="${styles.dotIndicator}"></div>`)
       .join("");

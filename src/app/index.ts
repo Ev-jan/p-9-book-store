@@ -1,5 +1,5 @@
 import "./index.scss";
-import { BooksPage } from "../pages/booksPage";
+import { BooksPage } from "../pages/booksPage/booksPage";
 const booksPage = new BooksPage();
 
 export const App = () => {

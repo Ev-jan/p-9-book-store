@@ -1,9 +1,9 @@
-import { NavigationItem } from "../../interfaces";
+import { INavigationItem } from "../../interfaces";
 import styles from "./header.scss";
 
 export const Header = (
   logo: string,
-  items: NavigationItem[],
+  items: INavigationItem[],
   styleModifierClass?: string
 ) => {
   const navigationItems = items

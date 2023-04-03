@@ -1,0 +1,52 @@
+@import "/src/app/styles/vars.scss";
+
+
+.contentContainer {
+  position: relative;
+  grid-row: 3/4;
+  display: grid;
+  grid-template-columns: 3 auto;
+  grid-template-rows: auto;
+  z-index: 0;
+}
+
+.sideNavContainer {
+  position: absolute;
+  display: flex;
+  width: 41.6rem;
+  height: 71rem;
+  translate: -16rem;
+  z-index: -1;
+}
+
+.bookGallery {
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 7.5rem;
+  grid-row-gap: 9rem;
+  margin: 0 auto;
+  max-width: 92.4rem;
+  width: 100%;
+  translate: 9.8rem 4.6rem;
+  margin-bottom: 7.4rem;
+}
+
+.bookCard {
+  width: 42.4rem;
+  height: 30rem;
+}
+
+.loadBtnContainer {
+  grid-column: 1/-1;
+  display: grid;
+  justify-content: center;
+}
+
+@media (max-width: 1120px) {
+  .bookGallery {
+    max-width: 100%;
+    padding: 0 15px;
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,60 @@
+@import "/src/app/styles/vars.scss";
+
+.categories {
+  font-family: $base-font;
+  font-weight: $semibold;
+  font-size: $size-12;
+  line-height: $l-height-15;
+  text-transform: capitalize;
+  color: $color-main-normal;
+  list-style-type: none;
+  box-sizing: border-box;
+  & li {
+    padding-bottom: 2.3rem;
+    &:first-of-type {
+        padding-top: 2rem;
+    }
+  }
+  & button {
+    all: unset;
+    cursor: pointer;
+
+  }
+}
+
+.sideNav {
+  background-color: #efeef6;
+  width: 100%;
+  height: 100%;
+  padding-left: 16rem;
+  padding-top: 2.5rem;
+}
+
+.active {
+  color: $color-main-phat;
+  font-weight: $bold;
+  font-size: $size-16;
+  line-height: $l-height-20;
+
+  &::before {
+    content: "\2022";
+    color: #756ad3;
+    display: inline-block;
+    margin-left: -1.4rem;
+    width: 1.4rem;
+  }
+}
+
+.categories > li:hover {
+    color: $color-main-phat;
+    font-weight: $bold;
+    font-size: $size-16;
+    line-height: $l-height-20;
+    &::before {
+      content: "\2022";
+      color: #756ad3;
+      display: inline-block;
+      margin-left: -1.4rem;
+      width: 1.4rem;
+    }
+}

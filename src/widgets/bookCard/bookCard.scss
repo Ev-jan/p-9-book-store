@@ -11,15 +11,17 @@
   height: 30rem;
   width: 21.2rem;
   box-shadow: 0px 24px 36px 0px #35315447;
-  ;
 }
 
 .cover {
   object-fit: cover;
-
+  height: 100%;
+  width: 100%;
 }
 
 .bookData {
+  display: grid;
+  grid-template-rows: 1.8rem, 2.4rem, 2.9rem, 5.5rem, 3.2rem, 4.5rem;
   width: 21.2rem;
   padding: 4.8rem 0;
 }
@@ -44,14 +46,14 @@
 
 .ratingBar {
   display: flex;
-  column-gap: .6rem;
+  column-gap: 0.6rem;
   font-family: $aux-font;
   font-size: $size-10;
   font-weight: $normal;
   line-height: $l-height-14;
   color: $color-main-normal;
   margin-bottom: 1.6rem;
-  position:relative;
+  position: relative;
   height: 1.2rem;
   width: fit-content;
 }
@@ -73,7 +75,7 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-  height: 3.8rem;
+  height: 3.9rem;
   width: 17.6rem;
   margin-bottom: 1.6rem;
 }
@@ -84,8 +86,10 @@
   font-weight: $bold;
   line-height: $l-height-16;
   color: $color-main-phat;
+  height: 1.6rem;
   margin-bottom: 1.6rem;
 }
+
 .buttonContainer {
   display: block;
 }
