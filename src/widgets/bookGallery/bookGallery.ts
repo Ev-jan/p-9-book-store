@@ -4,7 +4,7 @@ import { BookCard } from "../bookCard/bookCard";
 import { Button } from "../../shared/ui/button/button";
 import { Mediator } from "./mediator";
 import { BrowseCategories } from "../../features/browseCategories/browseCategories";
-import { mockBook } from "../../widgets/bookCard/bookCard";
+import { Cart } from "../../entities/cart/cart";
 
 const bookCategory: string[] = [
   "Architecture",
@@ -25,7 +25,6 @@ const bookCategory: string[] = [
   "Travel & Maps",
 ];
 
-const bookCard = new BookCard(mockBook);
 const loadMoreBtn = Button("load more", "btn-load-more");
 const mediator = new Mediator();
 const sideNav = new BrowseCategories(
@@ -38,6 +37,9 @@ const sideNav = new BrowseCategories(
 // and therefor it handles the majority of the page"s functionality.
 
 export class BookGallery {
+  private mediator: Mediator  = mediator;
+  private cart: Cart = new Cart();
+  private currentCategory: string = "Architecture";
   private printType: string = "books";
   private startIndex: number = 0;
   private maxResults: number = 6;
@@ -50,12 +52,16 @@ export class BookGallery {
     maxResults: this.maxResults.toString(),
     langRestrict: this.langRestrict,
   });
-  private mediator: Mediator;
-  private currentCategory: string = "Architecture";
+
   constructor() {
-    this.mediator = mediator;
     this.mediator.subscribe("categorySelected", (category: string) => {
       this.currentCategory = category;
+    });
+    this.mediator.subscribe("addToCart", (book: IBook) => {
+      this.cart.add(book)
+    });
+    this.mediator.subscribe("removeFromCart", (book: IBook) => {
+      this.cart.remove(book);
     });
   }
 
@@ -68,8 +74,7 @@ export class BookGallery {
         ${sideNav.createMenu()}
         </aside>
         <div class="${styles.bookGallery}" id="book-gallery">
-        <div class="${styles.bookCard}">${bookCard.create()}</div>
-        <div class="${styles.bookCard}">${bookCard.create()}</div>
+
         </div>
         <div class="${styles.loadBtnContainer}">
         ${loadMoreBtn}
@@ -77,6 +82,9 @@ export class BookGallery {
     </section>
     `;
   }
+
+  // <div class="${styles.bookCard}">${bookCard.create()}</div>
+  // <div class="${styles.bookCard}">${bookCard.create()}</div>
 
   async fetchBooks(): Promise<IBook[]> {
     const params = new URLSearchParams(this.defaultParams);
@@ -89,6 +97,7 @@ export class BookGallery {
     const data = await response.json();
 
     return data.items.map((item: any) => ({
+      id: item.id,
       authors: item.volumeInfo.authors,
       title: item.volumeInfo.title,
       averageRating: item.volumeInfo.averageRating,
@@ -110,7 +119,7 @@ export class BookGallery {
             books.forEach((book)=>{
                 const cardElement = document.createElement("div");
                 cardElement.classList.add(`${styles.bookCard}`);
-                const bookCard = new BookCard(book);
+                const bookCard = new BookCard(book, this.mediator);
                 cardElement.innerHTML = `${bookCard.create()}`;
                 bookGalleryNode.appendChild(cardElement);
                 bookCard.update();

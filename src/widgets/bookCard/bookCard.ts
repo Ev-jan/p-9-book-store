@@ -3,20 +3,25 @@ import { Button } from "../../shared/ui/button/button";
 import { RatingStars } from "../../shared/ui/ratingStars/ratingStars";
 import { IBook } from "../../shared/interfaces";
 import { GenerateId } from "../../shared/helpers";
+import { Mediator } from "../bookGallery/mediator";
 
-export const mockBook: IBook = {
-  authors: "Kevin Kwan",
-  title: "Crazy rich asians",
-  averageRating: 4.4,
-  ratingsCount: 275,
-  description:
-    "the outrageously funny debut novel about three super-rich, pedigreed Chinese families and the gossip ese families and the gossip...",
-  amount: 4.99,
-  currencyCode: "USD",
-  thumbnail: "../../shared/assets/book-cover-placeholder.png",
-};
+// const mediator = new Mediator();
+
+// export const mockBook: IBook = {
+//   authors: "Kevin Kwan",
+//   title: "Crazy rich asians",
+//   averageRating: 4.4,
+//   ratingsCount: 275,
+//   description:
+//     "the outrageously funny debut novel about three super-rich, pedigreed Chinese families and the gossip ese families and the gossip...",
+//   amount: 4.99,
+//   currencyCode: "USD",
+//   thumbnail: "../../shared/assets/book-cover-placeholder.png",
+// };
 
 export class BookCard {
+  private mediator: Mediator;
+  private book: IBook
   private authors: string = "Author unknown";
   private title: string = "No title";
   private averageRating: number;
@@ -27,7 +32,8 @@ export class BookCard {
   private thumbnail: string = "../../shared/assets/book-cover-placeholder.png";
   private id: string = GenerateId()
 
-  constructor(books: IBook) {
+  constructor(books: IBook, mediator: Mediator) {
+    this.id = books.id ? books.id : this.id
     this.authors = books.authors ? books.authors : this.authors
     this.title = books.title ? books.title : this.title
     this.averageRating = books.averageRating;
@@ -35,8 +41,9 @@ export class BookCard {
     this.description = books.description ? books.description : this.description
     this.amount = books.amount;
     this.currencyCode = books.currencyCode;
-    this.thumbnail = books.thumbnail ? books.thumbnail : this.thumbnail
-
+    this.thumbnail = books.thumbnail ? books.thumbnail : this.thumbnail;
+    this.book = books;
+    this.mediator = mediator;
   }
 
   public create() {
@@ -74,11 +81,14 @@ export class BookCard {
       if(buyNowBtn.innerText === "BUY NOW") {
         buyNowBtn.innerText = "IN CART";
         buyNowBtn.style.border = "1px solid #EEEDF5";
-        buyNowBtn.style.color = "#5C6A79"
+        buyNowBtn.style.color = "#5C6A79";
+        this.mediator.emit("addToCart", this.book)
+
       } else if (buyNowBtn.innerText === "IN CART") {
         buyNowBtn.innerText = "BUY NOW";
         buyNowBtn.style.border = "1px solid #4C3DB2";
-        buyNowBtn.style.color = "#4C3DB2"
+        buyNowBtn.style.color = "#4C3DB2";
+        this.mediator.emit("removeFromCart", this.book)
       };
     })
   }

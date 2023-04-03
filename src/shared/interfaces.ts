@@ -10,6 +10,7 @@ export interface ISlideImage {
 }
 
 export interface IBook {
+  id: string;
   authors: string;
   title: string;
   averageRating: number;

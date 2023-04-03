@@ -2,6 +2,8 @@
 // This class will listen for events emitted byt one class and pass data to the other class, with data being book category names in this case.
 //This way, the two classes will be more decoupled and more modular.
 
+import { IBook } from "../../shared/interfaces";
+
 export class Mediator {
   listeners: { [event: string]: Function[] };
 
@@ -16,7 +18,7 @@ export class Mediator {
     this.listeners[event].push(callback);
   }
 
-  emit(event: string, data: string) {
+  emit(event: string, data: string | IBook) {
     if (!this.listeners[event]) {
       return;
     }
