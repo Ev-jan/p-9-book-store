@@ -1,6 +1,8 @@
 declare namespace HeaderScssNamespace {
   export interface IHeaderScss {
     header: string;
+    headerCartContainer: string;
+    headerCartCount: string;
     iconBar: string;
     logo: string;
   }

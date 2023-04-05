@@ -51,3 +51,24 @@
   font-size: $size-24;
   color: $color-main-phat;
 }
+
+.headerCartContainer {
+  position: relative;
+}
+
+.headerCartCount {
+  display: none;
+  position: absolute;
+  top: 6px;
+  right: -5px;
+  width: 13px;
+  height: 13px;
+  line-height: 13px;
+  background-color: #FF353A;
+  border-radius: 50%;
+  color: #FFFFFF;
+  font-family: $base-font;
+  font-size: $size-10;
+  font-weight: $semibold;
+  text-align: center;
+}
