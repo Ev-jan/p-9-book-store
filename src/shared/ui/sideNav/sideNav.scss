@@ -50,11 +50,4 @@
     font-weight: $bold;
     font-size: $size-16;
     line-height: $l-height-20;
-    &::before {
-      content: "\2022";
-      color: #756ad3;
-      display: inline-block;
-      margin-left: -1.4rem;
-      width: 1.4rem;
-    }
 }

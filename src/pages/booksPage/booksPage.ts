@@ -5,8 +5,6 @@ import { Slider } from "../../widgets/slider/slider";
 import { Header } from "../../shared/ui/header/header";
 import { BookGallery } from "../../widgets/bookGallery/bookGallery";
 
-// data
-
 const navigationItems: INavigationItem[] = [
   { label: "BOOKS", url: "/" },
   { label: "AUDIOBOOKS", url: "/audiobooks" },
@@ -26,8 +24,6 @@ const slides: ISlideImage[] = [
   },
 ];
 
-// components
-
 const bookPageSlider = new Slider(slides);
 const booksPageHeader = Header("Bookshop", navigationItems);
 const bookGallery = new BookGallery();
@@ -41,8 +37,8 @@ export class BooksPage {
   ${booksPageHeader}
   </div>
   <main class="${styles.restrainingContainer}">
-  <a href="">Change old book to new <img src="../../shared/assets/arrow-right.svg" alt="click here"></a>
-  <a href="">top 100 books 2022 <img src="../../shared/assets/arrow-right.svg" alt="click here"></a>
+  <a class="${styles.adSquare}" href="">Change old book to new <img src="../../shared/assets/arrow-right.svg" alt="click here"></a>
+  <a class="${styles.adSquare}" href="">top 100 books 2022 <img src="../../shared/assets/arrow-right.svg" alt="click here"></a>
       <section class="${styles.heroContainer}">
       ${bookPageSlider.create(slides)}
       </section>

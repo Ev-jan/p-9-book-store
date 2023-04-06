@@ -34,7 +34,7 @@ const sideNav = new BrowseCategories(
 );
 
 // The BrowseBooks class is responsible for displaying books to users, which is the purpose of the app,
-// and therefor it handles the majority of the page"s functionality.
+// and therefore it handles the majority of the page's functionality
 
 export class BookGallery {
   private mediator: Mediator  = mediator;
@@ -56,6 +56,7 @@ export class BookGallery {
   constructor() {
     this.mediator.subscribe("categorySelected", (category: string) => {
       this.currentCategory = category;
+      this.resetAndLoadBooks();
     });
     this.mediator.subscribe("addToCart", (book: IBook) => {
       this.cart.add(book)
@@ -63,28 +64,27 @@ export class BookGallery {
     this.mediator.subscribe("removeFromCart", (book: IBook) => {
       this.cart.remove(book);
     });
+    window.addEventListener("load", () => {
+      this.resetAndLoadBooks();
+    });
   }
 
   create() {
     return `
         <section class="${styles.contentContainer}">
-        <aside class="${
-          styles.sideNavContainer
-        }" id="book-gallery-side-nav-container">
-        ${sideNav.createMenu()}
-        </aside>
-        <div class="${styles.bookGallery}" id="book-gallery">
-
-        </div>
-        <div class="${styles.loadBtnContainer}">
-        ${loadMoreBtn}
-        </div>
-    </section>
+          <aside class="${
+            styles.sideNavContainer
+          }" id="book-gallery-side-nav-container">
+          ${sideNav.createMenu()}
+          </aside>
+          <div class="${styles.bookGallery}" id="book-gallery">
+          </div>
+          <div class="${styles.loadBtnContainer}">
+          ${loadMoreBtn}
+          </div>
+        </section>
     `;
   }
-
-  // <div class="${styles.bookCard}">${bookCard.create()}</div>
-  // <div class="${styles.bookCard}">${bookCard.create()}</div>
 
   async fetchBooks(): Promise<IBook[]> {
     const params = new URLSearchParams(this.defaultParams);
@@ -105,7 +105,7 @@ export class BookGallery {
       description: item.volumeInfo.description,
       amount: item.volumeInfo.amount,
       currencyCode: item.volumeInfo.currencyCode,
-      thumbnail: item.volumeInfo.imageLinks.thumbnail,
+      thumbnail: item.volumeInfo.imageLinks?.thumbnail,
     }));
   }
 
@@ -124,16 +124,22 @@ export class BookGallery {
                 bookGalleryNode.appendChild(cardElement);
                 bookCard.update();
             });
-            this.startIndex += this.maxResults; // increment the start index to get next six items
+            this.startIndex += this.maxResults;
         }
     } catch (error) {
       console.error("Error fetching books", error);
     }
   }
 
+  async resetAndLoadBooks() {
+    this.startIndex = 0;
+    const bookGalleryNode = document.getElementById("book-gallery") as HTMLDivElement;
+    bookGalleryNode.innerHTML = "";
+    await this.loadBooks();
+  }
+
   update() {
     sideNav.update();
-
     const loadMoreBtn = document.getElementById("btn-load-more");
     loadMoreBtn?.addEventListener("click", this.loadBooks.bind(this));
   }

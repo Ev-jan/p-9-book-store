@@ -26,6 +26,13 @@
   height: 70.2rem;
 }
 
+.adSquare {
+  transition: transform 1s ease-in-out;
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
 .restrainingContainer > a:first-of-type {
   display: flex;
   flex-direction: column;
