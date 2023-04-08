@@ -45,7 +45,7 @@ export class BookGallery {
   private maxResults: number = 6;
   private langRestrict: string = "en";
   private apiUrl: string = "https://www.googleapis.com/books/v1/volumes";
-  private apiKey: string = `${{secrets.BOOKS_API_KEY}}`;
+  private apiKey: string = `AIzaSyAV1Pfj6dTytZrCYtRXnjOIgt0YuFbWMLA `;
   private defaultParams: URLSearchParams = new URLSearchParams({
     printType: this.printType,
     startIndex: this.startIndex.toString(),
