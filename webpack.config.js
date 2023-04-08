@@ -1,6 +1,8 @@
 const path = require("path");
-const webpack = require("webpack");
+// const webpack = require("webpack");
+const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const config = {
   entry: "./src/index.ts",
@@ -8,7 +10,7 @@ const config = {
     path: path.resolve(__dirname, "dist"),
     filename: "main.js",
   },
-  optimization: {},
+  mode: "production",
   plugins: [new MiniCssExtractPlugin()],
   module: {
     rules: [
@@ -27,14 +29,13 @@ const config = {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          // 'style-loader',
           {
             loader: "@teamsupercell/typings-for-css-modules-loader",
-            options: { formatter: "prettier" }
+            options: { formatter: "prettier" },
           },
           {
             loader: "css-loader",
-            options: { modules: true }
+            options: { modules: true },
           },
           "sass-loader",
         ],
@@ -50,6 +51,10 @@ const config = {
       },
     ],
   },
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+  },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
@@ -60,8 +65,8 @@ const config = {
     },
     compress: true,
     port: 9000,
+    hot: true,
   },
-  // watch: true,
 };
 
 module.exports = config;

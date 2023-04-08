@@ -11,7 +11,7 @@ export class BlogBooksPage {
   </div>
   <main class="${styles.restrainingContainer}">
       <section class="${styles.heroContainer}">
-      <img src="../../shared/assets/chat_blogging.jpg" alt="cat-blogger gazing at the laptop screen, page is under construction">
+      <img src="../../shared/assets/chat_blogging.jpg" loading="lazy" alt="cat-blogger gazing at the laptop screen, page is under construction">
       </section>
   </main>
   </body>
