@@ -8,7 +8,7 @@ import { cart } from "../entities/cart/cart";
 const booksPage = new BooksPage();
 const audioBooksPage = new AudioBooksPage();
 const giftsPage = new GiftsPage();
-const blogPage = new BlogBooksPage()
+const blogPage = new BlogBooksPage();
 
 const handleRoute = (path: string) => {
   switch (path) {
@@ -47,6 +47,8 @@ export const App = () => {
     window.addEventListener("popstate", () => {
       handleRoute(window.location.pathname);
     });
-
+    window.addEventListener("load", () => {
+      handleRoute(window.location.pathname);
+    });
   }
 };
