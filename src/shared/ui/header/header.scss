@@ -72,3 +72,15 @@
   font-weight: $semibold;
   text-align: center;
 }
+
+@media (max-width: 690px) {
+.header {
+  flex-flow: row wrap;
+  justify-content: center;
+  & ul {
+    list-style-type: none;
+    display: flex;
+    column-gap: 1rem;
+  }
+}
+}

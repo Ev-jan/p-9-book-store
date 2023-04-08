@@ -3,8 +3,14 @@ declare namespace BookGalleryScssNamespace {
     bookCard: string;
     bookGallery: string;
     contentContainer: string;
+    diagonal: string;
+    horizontal: string;
     loadBtnContainer: string;
+    part1: string;
+    part2: string;
     sideNavContainer: string;
+    sidebarIconToggle: string;
+    spinner: string;
   }
 }
 

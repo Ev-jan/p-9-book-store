@@ -20,6 +20,7 @@
   "license": "MIT",
   "devDependencies": {
     "@teamsupercell/typings-for-css-modules-loader": "^2.5.2",
+    "@types/node": "^18.15.11",
     "css-loader": "^6.7.3",
     "file-loader": "^6.2.0",
     "js-loader": "^0.0.2",

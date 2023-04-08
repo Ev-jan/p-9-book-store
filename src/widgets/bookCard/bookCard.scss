@@ -103,3 +103,26 @@
 .buttonContainer {
   display: block;
 }
+
+@media (max-width: 690px) {
+  .bookCard {
+    display: flex;
+
+    flex-direction: column;
+    column-gap: 0rem;
+    row-gap: 1rem;
+    width: unset;
+    height: unset;
+  }
+
+  .bookData {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .title {
+    text-align: center;
+  }
+}

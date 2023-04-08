@@ -4,6 +4,7 @@ import styles from "./slider.scss";
 export class Slider {
   private slides: ISlideImage[] = [];
   private currentIndex: number = 0;
+  private timerID: NodeJS.Timer | number | null = 0;
   private sliderContainerEl: HTMLDivElement | null = null;
   private slideShowContainerEl: HTMLImageElement | null = null;
   private slideShowControlsEl: HTMLDivElement | null = null;
@@ -57,22 +58,26 @@ export class Slider {
     // show first slide
 
     this.showSlide();
-    this.currentIndex++;
+    this.currentIndex = (this.currentIndex + 1) % this.slides.length;
 
-    // set timeout to show slides every 5 sec
-
-    setInterval(() => {
+    const loop = () => {
+      if(this.timerID) {
+        clearTimeout(this.timerID);
+      }
       if (this.currentIndex > this.slides.length - 1) {
         this.currentIndex = 0;
       }
       this.showSlide();
-      this.currentIndex++;
-    }, this.slideShowInterval);
+      this.currentIndex = (this.currentIndex + 1) % this.slides.length;
+      this.timerID = setTimeout(loop, this.slideShowInterval);
+    };
+      this.timerID = setTimeout(loop, this.slideShowInterval);
+
+
   }
 
   private showSlide() {
     if (this.slideShowContainerEl) {
-      this.slideShowContainerEl.style.animationPlayState = "running";
       this.slideShowContainerEl.src = `${
         this.slides[this.currentIndex].url
       }`;
@@ -84,7 +89,6 @@ export class Slider {
           i === this.currentIndex
         );
       });
-
     }
   }
 }

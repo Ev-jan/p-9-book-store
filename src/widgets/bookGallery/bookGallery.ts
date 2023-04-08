@@ -2,9 +2,9 @@ import styles from "./bookGallery.scss";
 import { IBook } from "../../shared/interfaces";
 import { BookCard } from "../bookCard/bookCard";
 import { Button } from "../../shared/ui/button/button";
-import { Mediator } from "./mediator";
+import { mediator } from "../../shared/mediator";
 import { BrowseCategories } from "../../features/browseCategories/browseCategories";
-import { Cart } from "../../entities/cart/cart";
+import { cart } from "../../entities/cart/cart";
 
 const bookCategory: string[] = [
   "Architecture",
@@ -26,9 +26,8 @@ const bookCategory: string[] = [
 ];
 
 const loadMoreBtn = Button("load more", "btn-load-more");
-const mediator = new Mediator();
+
 const sideNav = new BrowseCategories(
-  mediator,
   bookCategory,
   "book-gallery-side-nav-container"
 );
@@ -37,8 +36,9 @@ const sideNav = new BrowseCategories(
 // and therefore it handles the majority of the page's functionality
 
 export class BookGallery {
-  private mediator: Mediator  = mediator;
-  private cart: Cart = new Cart();
+  private mediator = mediator;
+  private cart = cart;
+  private booksFromCart: IBook[] = [];
   private currentCategory: string = "Architecture";
   private printType: string = "books";
   private startIndex: number = 0;
@@ -59,22 +59,32 @@ export class BookGallery {
       this.resetAndLoadBooks();
     });
     this.mediator.subscribe("addToCart", (book: IBook) => {
-      this.cart.add(book)
+      this.cart.add(book);
     });
     this.mediator.subscribe("removeFromCart", (book: IBook) => {
       this.cart.remove(book);
     });
-    window.addEventListener("load", () => {
-      this.resetAndLoadBooks();
+    this.mediator.subscribe("cartUpdated", (books: IBook[]) => {
+      this.booksFromCart = books;
     });
   }
 
   create() {
     return `
         <section class="${styles.contentContainer}">
+        <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+        <label for="openSidebarMenu" class="${styles.sidebarIconToggle}">
+          <div class="${styles.spinner} ${styles.diagonal} ${
+      styles.part1
+    }"></div>
+          <div class="${styles.spinner} ${styles.horizontal}"></div>
+          <div class="${styles.spinner} ${styles.diagonal} ${
+      styles.part2
+    }"></div>
+        </label>
           <aside class="${
             styles.sideNavContainer
-          }" id="book-gallery-side-nav-container">
+          }" id="book-gallery-side-nav-container" tabindex="-1">
           ${sideNav.createMenu()}
           </aside>
           <div class="${styles.bookGallery}" id="book-gallery">
@@ -115,17 +125,19 @@ export class BookGallery {
         "book-gallery"
       ) as HTMLDivElement;
       const books = await this.fetchBooks();
-        if(bookGalleryNode){
-            books.forEach((book)=>{
-                const cardElement = document.createElement("div");
-                cardElement.classList.add(`${styles.bookCard}`);
-                const bookCard = new BookCard(book, this.mediator);
-                cardElement.innerHTML = `${bookCard.create()}`;
-                bookGalleryNode.appendChild(cardElement);
-                bookCard.update();
-            });
-            this.startIndex += this.maxResults;
-        }
+      let isBookInCart = false;
+      if (bookGalleryNode) {
+        books.forEach((book) => {
+          const cardElement = document.createElement("div");
+          cardElement.classList.add(`${styles.bookCard}`);
+          const bookCard = new BookCard(book);
+          cardElement.innerHTML = `${bookCard.create()}`;
+          bookGalleryNode.appendChild(cardElement);
+          isBookInCart = this.booksFromCart.some((el) => el.id === book.id);
+          bookCard.update(isBookInCart);
+        });
+        this.startIndex += this.maxResults;
+      }
     } catch (error) {
       console.error("Error fetching books", error);
     }
@@ -133,7 +145,9 @@ export class BookGallery {
 
   async resetAndLoadBooks() {
     this.startIndex = 0;
-    const bookGalleryNode = document.getElementById("book-gallery") as HTMLDivElement;
+    const bookGalleryNode = document.getElementById(
+      "book-gallery"
+    ) as HTMLDivElement;
     bookGalleryNode.innerHTML = "";
     await this.loadBooks();
   }
@@ -141,6 +155,7 @@ export class BookGallery {
   update() {
     sideNav.update();
     const loadMoreBtn = document.getElementById("btn-load-more");
+    this.resetAndLoadBooks();
     loadMoreBtn?.addEventListener("click", this.loadBooks.bind(this));
   }
 }

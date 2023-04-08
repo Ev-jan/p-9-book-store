@@ -1,20 +1,18 @@
 import { SideNav } from "../../shared/ui/sideNav/sideNav";
 import styles from "../../shared/ui/sideNav/sideNav.scss";
-import { Mediator } from "../../widgets/bookGallery/mediator";
+import { mediator } from "../../shared/mediator"
 
 export class BrowseCategories {
-  mediator: Mediator;
-  categories: string[];
-  defaultCategory: string = "";
-  parentContainerId: string;
-  parentContainer: HTMLElement | null = null;
+  private mediator = mediator;
+  private categories: string[];
+  private defaultCategory: string = "";
+  private parentContainerId: string;
+  private parentContainer: HTMLElement | null = null;
 
   constructor(
-    mediator: Mediator,
     categories: string[],
     parentContainerId: string
   ) {
-    this.mediator = mediator;
     this.categories = categories;
     this.parentContainerId = parentContainerId;
   }
@@ -32,8 +30,8 @@ export class BrowseCategories {
     const defaultCategoryEl = this.parentContainer?.querySelector(
       ".sideNavBookCategory"
     ) as HTMLElement;
-    defaultCategoryEl.classList.add(`${styles.active}`);
     if(defaultCategoryEl) {
+      defaultCategoryEl.classList.add(`${styles.active}`);
       const defaultActiveButton = defaultCategoryEl.closest("button");
       if(defaultActiveButton) {
         this.defaultCategory = defaultCategoryEl.closest("button")?.dataset.category as string;

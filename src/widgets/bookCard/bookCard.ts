@@ -3,10 +3,10 @@ import { Button } from "../../shared/ui/button/button";
 import { RatingStars } from "../../shared/ui/ratingStars/ratingStars";
 import { IBook } from "../../shared/interfaces";
 import { GenerateId } from "../../shared/helpers";
-import { Mediator } from "../bookGallery/mediator";
+import { mediator } from "../../shared/mediator";
 
 export class BookCard {
-  private mediator: Mediator;
+  private mediator = mediator;
   private book: IBook;
   private authors: string = "Author unknown";
   private title: string = "No title";
@@ -18,7 +18,7 @@ export class BookCard {
   private thumbnail: string = "../../shared/assets/book-cover-placeholder.png";
   private id: string = GenerateId();
 
-  constructor(books: IBook, mediator: Mediator) {
+  constructor(books: IBook) {
     this.id = books.id ? books.id : this.id;
     this.authors = books.authors ? books.authors : this.authors;
     this.title = books.title ? books.title : this.title;
@@ -29,7 +29,6 @@ export class BookCard {
     this.currencyCode = books.currencyCode;
     this.thumbnail = books.thumbnail ? books.thumbnail : this.thumbnail;
     this.book = books;
-    this.mediator = mediator;
   }
 
   public create() {
@@ -94,22 +93,35 @@ export class BookCard {
     } else {
       return "Author unknown";
     }
-  }
+  };
 
-  public update() {
+  public update(isInCart: boolean) {
     const buyNowBtn = document.getElementById(`buyNowBtn-${this.id}`);
+    this.toggleButtonText(isInCart, buyNowBtn);
     buyNowBtn?.addEventListener("click", () => {
-      if (buyNowBtn.innerText === "BUY NOW") {
-        buyNowBtn.innerText = "IN CART";
-        buyNowBtn.style.border = "1px solid #EEEDF5";
-        buyNowBtn.style.color = "#5C6A79";
+      if (isInCart === false) {
+        isInCart = true;
+        this.toggleButtonText(isInCart, buyNowBtn);
         this.mediator.emit("addToCart", this.book);
-      } else if (buyNowBtn.innerText === "IN CART") {
-        buyNowBtn.innerText = "BUY NOW";
-        buyNowBtn.style.border = "1px solid #4C3DB2";
-        buyNowBtn.style.color = "#4C3DB2";
+      } else {
+        isInCart = false;
+        this.toggleButtonText(isInCart, buyNowBtn);
         this.mediator.emit("removeFromCart", this.book);
       }
     });
+  }
+
+  private toggleButtonText(isInCart: boolean, button: HTMLElement | null) {
+    if (button) {
+      if (isInCart) {
+        button.innerText = "IN CART";
+        button.style.border = "1px solid #EEEDF5";
+        button.style.color = "#5C6A79";
+      } else {
+        button.innerText = "BUY NOW";
+        button.style.border = "1px solid #4C3DB2";
+        button.style.color = "#4C3DB2";
+      }
+    }
   }
 }

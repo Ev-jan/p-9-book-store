@@ -12,13 +12,12 @@
   & li {
     padding-bottom: 2.3rem;
     &:first-of-type {
-        padding-top: 2rem;
+      padding-top: 2rem;
     }
   }
   & button {
     all: unset;
     cursor: pointer;
-
   }
 }
 
@@ -46,8 +45,35 @@
 }
 
 .categories > li:hover {
-    color: $color-main-phat;
-    font-weight: $bold;
-    font-size: $size-16;
-    line-height: $l-height-20;
+  color: $color-main-phat;
+  font-weight: $bold;
+  font-size: $size-16;
+  line-height: $l-height-20;
+}
+
+@media (max-width: 1120px) {
+  .sideNav {
+    background-color: #efeef6;
+    width: 100%;
+    height: 100%;
+    padding-left: 6rem;
+    padding-top: 2.5rem;
+  }
+}
+
+@media (max-width: 690px) {
+  .categories {
+    font-size: $size-10;
+    line-height: $l-height-12;
+    color: $color-main-normal;
+    & li {
+      padding-bottom: 1rem;
+      &:first-of-type {
+        padding-top: 1rem;
+      }
+      &:last-of-type {
+        padding-bottom: 2rem;
+      }
+    }
+  }
 }

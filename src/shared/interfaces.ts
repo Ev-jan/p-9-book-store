@@ -21,3 +21,6 @@ export interface IBook {
   thumbnail: string;
 }
 
+export interface InavEvent extends Event {
+  detail: { path: string }
+}
