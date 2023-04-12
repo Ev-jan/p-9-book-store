@@ -9,7 +9,7 @@ This is a front-end web application that allows users to browse books from the G
 
 ## Approaches and Methodologies
 
-While this project is far from perfect, the author attempted to follow best practices and employ modern web development techniques. The project was built using HTML, SCSS, and TypeScript, and uses the following tools:
+The project was built using HTML, SCSS, and TypeScript, and uses the following tools:
 
    * webpack for bundling and building the project
    * Prettier for code formatting
