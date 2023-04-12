@@ -5,6 +5,7 @@ import { Button } from "../../shared/ui/button/button";
 import { mediator } from "../../shared/mediator";
 import { BrowseCategories } from "../../features/browseCategories/browseCategories";
 import { cart } from "../../entities/cart/cart";
+import { Loader } from "../../shared/ui/loader/loader";
 
 const bookCategory: string[] = [
   "Architecture",
@@ -25,7 +26,7 @@ const bookCategory: string[] = [
   "Travel & Maps",
 ];
 
-const loadMoreBtn = Button("load more", "btn-load-more");
+const loadMoreBtn = Button("load more", "btn-load-more", styles.loadMoreBtn);
 
 const sideNav = new BrowseCategories(
   bookCategory,
@@ -45,7 +46,7 @@ export class BookGallery {
   private maxResults: number = 6;
   private langRestrict: string = "en";
   private apiUrl: string = "https://www.googleapis.com/books/v1/volumes";
-  private apiKey: string = `AIzaSyAV1Pfj6dTytZrCYtRXnjOIgt0YuFbWMLA `;
+  private apiKey: string = `AIzaSyAV1Pfj6dTytZrCYtRXnjOIgt0YuFbWMLA`;
   private defaultParams: URLSearchParams = new URLSearchParams({
     printType: this.printType,
     startIndex: this.startIndex.toString(),
@@ -89,6 +90,8 @@ export class BookGallery {
           </aside>
           <div class="${styles.bookGallery}" id="book-gallery">
           </div>
+          <div class="${styles.loaderContainer}" id="gallery-loader-container">
+          </div>
           <div class="${styles.loadBtnContainer}">
           ${loadMoreBtn}
           </div>
@@ -119,11 +122,28 @@ export class BookGallery {
     }));
   }
 
+  private toggleLoader(visibility: "show" | "hide"){
+    const loaderContainer = document.getElementById("gallery-loader-container") as HTMLDivElement;
+    if(loaderContainer){
+      if(visibility === "show") {
+        loaderContainer.innerHTML = Loader();
+      }
+      else {
+        loaderContainer.innerHTML = ""
+      }
+    } else throw new Error("loader container not found")
+  }
+
   async loadBooks() {
     try {
       const bookGalleryNode = document.getElementById(
         "book-gallery"
       ) as HTMLDivElement;
+      const loadMoreBtn = document.getElementById("btn-load-more") as HTMLButtonElement;
+
+        this.toggleLoader("show");
+        loadMoreBtn.disabled = true;
+
       const books = await this.fetchBooks();
       let isBookInCart = false;
       if (bookGalleryNode) {
@@ -138,6 +158,9 @@ export class BookGallery {
         });
         this.startIndex += this.maxResults;
       }
+
+      this.toggleLoader("hide");
+      loadMoreBtn.disabled = false;
     } catch (error) {
       console.error("Error fetching books", error);
     }

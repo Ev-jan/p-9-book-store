@@ -6,6 +6,8 @@ declare namespace BookGalleryScssNamespace {
     diagonal: string;
     horizontal: string;
     loadBtnContainer: string;
+    loadMoreBtn: string;
+    loaderContainer: string;
     part1: string;
     part2: string;
     sideNavContainer: string;

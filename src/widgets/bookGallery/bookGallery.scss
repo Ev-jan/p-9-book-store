@@ -9,6 +9,15 @@
   z-index: 0;
 }
 
+
+.loaderContainer{
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  margin-left: 18%;
+}
+
+
 .sideNavContainer {
   position: absolute;
   display: flex;
@@ -41,6 +50,15 @@
   justify-content: center;
   margin-bottom: 7.4rem;
   margin-left: 18%;
+}
+
+.loadMoreBtn {
+  &:disabled {
+    border: 1px solid #EEEDF5;
+    color: #5C6A79;
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 input[type="checkbox"]:checked ~ .sideNavContainer {
@@ -85,6 +103,14 @@ input[type="checkbox"] {
     max-width: 100%;
     margin-left: 0;
     margin-bottom: 7.4rem;
+  }
+
+  .loaderContainer{
+    display: flex;
+    grid-column: 1/-1;
+    justify-content: center;
+    max-width: 100%;
+    margin-left: 0;
   }
 }
 @media (max-width: 690px) {
@@ -136,12 +162,14 @@ input[type="checkbox"] {
   float: left;
   margin-top: 3px;
 }
+
 .diagonal.part1 {
   position: relative;
   transition: all 0.3s;
   box-sizing: border-box;
   float: left;
 }
+
 .diagonal.part2 {
   transition: all 0.3s;
   box-sizing: border-box;
@@ -149,17 +177,20 @@ input[type="checkbox"] {
   float: left;
   margin-top: 3px;
 }
+
 input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
   transition: all 0.3s;
   box-sizing: border-box;
   opacity: 0;
 }
+
 input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part1 {
   transition: all 0.3s;
   box-sizing: border-box;
   transform: rotate(135deg);
   margin-top: 8px;
 }
+
 input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part2 {
   transition: all 0.3s;
   box-sizing: border-box;

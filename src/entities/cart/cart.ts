@@ -25,20 +25,26 @@ export class Cart {
   }
 
   public update() {
-    this.getBooks()
+    this.getBooks();
     this.mediator.emit("cartUpdated", this.items);
     this.showItemCount();
   }
 
   private showItemCount() {
     const headerCartCountEl = document.getElementById("headerCartCount");
-    const cartJson = localStorage.getItem("cart");
-    const retrievedItems = cartJson ? JSON.parse(cartJson) as IBook[] : this.items;
-    if (headerCartCountEl && retrievedItems.length > 0) {
-      headerCartCountEl.style.display = "block";
-      headerCartCountEl.textContent = `${retrievedItems.length}`;
-    } else if (headerCartCountEl && retrievedItems.length === 0) {
-      headerCartCountEl.style.display = "none";
+    if (headerCartCountEl !== null) {
+      const cartJson = localStorage.getItem("cart");
+      const retrievedItems = cartJson
+        ? (JSON.parse(cartJson) as IBook[])
+        : ([] as IBook[]);
+      if (retrievedItems) {
+        if (retrievedItems.length > 0) {
+          headerCartCountEl.style.display = "block";
+          headerCartCountEl.textContent = `${retrievedItems.length}`;
+        } else if (headerCartCountEl !== null && retrievedItems.length === 0) {
+          headerCartCountEl.style.display = "none";
+        }
+      }
     }
   }
 
@@ -47,7 +53,7 @@ export class Cart {
     if (cartJson) {
       this.items = JSON.parse(cartJson) as IBook[];
     }
-    return this.items
+    return this.items;
   }
 }
 

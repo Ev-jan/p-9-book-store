@@ -27,11 +27,13 @@ export class BooksPage {
   <div class="${styles.headerContainer}">
   ${booksShopHeader.create()}
   </div>
+  <div class="${styles.adSquareContainer}">
+  <a class="${styles.adSquare}" href="">Change old book to new <img src="../../shared/assets/arrow-right.svg" alt="click here"></a>
+  <a class="${styles.adSquare}" href="">top 100 books 2022 <img src="../../shared/assets/arrow-right.svg" alt="click here"></a>
+</div>
   <main class="${styles.restrainingContainer}">
       <section class="${styles.heroContainer}">
       ${bookPageSlider.create(slides)}
-      <a class="${styles.adSquare}" href="">Change old book to new <img src="../../shared/assets/arrow-right.svg" alt="click here"></a>
-      <a class="${styles.adSquare}" href="">top 100 books 2022 <img src="../../shared/assets/arrow-right.svg" alt="click here"></a>
       </section>
       ${bookGallery.create()}
   </main>
