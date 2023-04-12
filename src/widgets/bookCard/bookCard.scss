@@ -107,8 +107,9 @@
 @media (max-width: 690px) {
   .bookCard {
     display: flex;
-
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     column-gap: 0rem;
     row-gap: 1rem;
     width: unset;
@@ -117,12 +118,16 @@
 
   .bookData {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
+    flex-flow: column wrap;
+    align-items: center;
     padding: 0;
   }
 
   .title {
+    text-align: center;
+  }
+
+  .description {
     text-align: center;
   }
 }

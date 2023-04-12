@@ -28,8 +28,10 @@ export class BooksPage {
   ${booksShopHeader.create()}
   </div>
   <div class="${styles.adSquareContainer}">
-  <a class="${styles.adSquare}" href="">Change old book to new <img src="../../shared/assets/arrow-right.svg" alt="click here"></a>
-  <a class="${styles.adSquare}" href="">top 100 books 2022 <img src="../../shared/assets/arrow-right.svg" alt="click here"></a>
+  <div class="${styles.adSquareInnerWrap}">
+      <a class="${styles.adSquare}" href="">Change old book to new <img src="../../shared/assets/arrow-right.svg" alt="click here"></a>
+      <a class="${styles.adSquare}" href="">top 100 books 2022 <img src="../../shared/assets/arrow-right.svg" alt="click here"></a>
+  </div>
 </div>
   <main class="${styles.restrainingContainer}">
       <section class="${styles.heroContainer}">

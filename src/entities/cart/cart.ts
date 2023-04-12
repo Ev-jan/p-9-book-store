@@ -2,7 +2,7 @@ import { IBook } from "../../shared/interfaces";
 import { mediator } from "../../shared/mediator";
 
 export class Cart {
-  private mediator = mediator;
+  public mediator = mediator;
   private items: IBook[] = [];
   constructor() {
     window.addEventListener("load", this.showItemCount);
@@ -30,7 +30,7 @@ export class Cart {
     this.showItemCount();
   }
 
-  private showItemCount() {
+  showItemCount() {
     const headerCartCountEl = document.getElementById("headerCartCount");
     if (headerCartCountEl !== null) {
       const cartJson = localStorage.getItem("cart");

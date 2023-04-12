@@ -2,6 +2,7 @@ declare namespace BooksPageScssNamespace {
   export interface IBooksPageScss {
     adSquare: string;
     adSquareContainer: string;
+    adSquareInnerWrap: string;
     headerContainer: string;
     heroContainer: string;
     restrainingContainer: string;

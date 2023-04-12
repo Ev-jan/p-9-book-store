@@ -61,7 +61,7 @@ export class Slider {
     this.currentIndex = (this.currentIndex + 1) % this.slides.length;
 
     const loop = () => {
-      if(this.timerID) {
+      if (this.timerID) {
         clearTimeout(this.timerID);
       }
       if (this.currentIndex > this.slides.length - 1) {
@@ -71,18 +71,13 @@ export class Slider {
       this.currentIndex = (this.currentIndex + 1) % this.slides.length;
       this.timerID = setTimeout(loop, this.slideShowInterval);
     };
-      this.timerID = setTimeout(loop, this.slideShowInterval);
-
-
+    this.timerID = setTimeout(loop, this.slideShowInterval);
   }
 
   private showSlide() {
     if (this.slideShowContainerEl) {
-      this.slideShowContainerEl.src = `${
-        this.slides[this.currentIndex].url
-      }`;
-      this.slideShowContainerEl.alt = `${this.slides[this.currentIndex].alt}`
-
+      this.slideShowContainerEl.src = `${this.slides[this.currentIndex].url}`;
+      this.slideShowContainerEl.alt = `${this.slides[this.currentIndex].alt}`;
       this.dotIndicatorEls!.forEach((el, i) => {
         el.classList.toggle(
           styles.dotIndicator_active,
